@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question-Paper-Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"
+    /> -->
+  </head>
+  <body>
+    <div>
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{url_for('index')}}"
+          >Question-Paper-Generator</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarsExample03"
+          aria-controls="navbarsExample03"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+          <ul class="navbar-nav mr-auto"></ul>
+          <a class="nav-link" style="color: white" href="{{url_for('branch')}}"
+            >Branch</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('subject')}}"
+            >Subject</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('unit')}}"
+            >Unit</a
+          >
+          <a
+            class="nav-link"
+            style="color: white"
+            href="{{url_for('question')}}"
+            >Question</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('paper')}}"
+            >Paper</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('logout')}}"
+            >Logout</a
+          >
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <h2>Add Subject</h2>
+      {%if notice%}
+      <h4 style="color: red">There is no such branch with this semester</h4>
+      {%endif%}
+      <form action="{{url_for('add_subject')}}" method="post">
+        <br />
+        <label>Branch Name</label>
+        <br />
+        <select
+          class="form-control"
+          data-live-search="true"
+          id="s_branch_name"
+          name="s_branch_name"
+        >
+          <option selected="" disabled="">Branch Name</option>
+          {%for branch in branch_name%}
+          <option value="{{branch[0]}}">{{branch[0]}}</option>
+          {%endfor%}
+        </select>
+
+        <br />
+        <br />
+        <label>Semester</label>
+        <br />
+        <select
+          class="form-control"
+          data-live-search="true"
+          id="semester"
+          name="semester"
+        ></select>
+        <br />
+        <br />
+        <label>Subject Code</label>
+        <input
+          class="form-control"
+          type="number"
+          name="s_code"
+          placeholder="Subject Code"
+          required
+        />
+        <br />
+        <label>Subject Name</label>
+        <input
+          class="form-control"
+          type="text"
+          name="subject_name"
+          placeholder="Subject Name"
+          required
+        />
+        <br />
+        <label>Status</label>
+        <br />
+        <select class="form-control" name="s_status">
+          <option selected="" disabled="">Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <br />
+        <br />
+        <input type="submit" value="Create" />
+      </form>
+    </div>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#s_branch_name").selectpicker();
+
+        $("#semester").selectpicker();
+
+        function load_data(type, category_id) {
+          $.ajax({
+            url: "/firstajax",
+            method: "POST",
+            data: { type: type, category_id: category_id },
+            dataType: "json",
+            success: function (data) {
+              // alert(category_id);
+              var html = "";
+              for (var count = 0; count < data.length; count++) {
+                html +=
+                  '<option value="' +
+                  data[count].semester +
+                  '">' +
+                  data[count].semester +
+                  "</option>";
+              }
+              if (type == "carData") {
+                $("#s_branch_name").html(html);
+                $("#s_branch_name").selectpicker("refresh");
+              } else {
+                $("#semester").html(html);
+                $("#semester").selectpicker("refresh");
+              }
+            },
+          });
+        }
+
+        $(document).on("change", "#s_branch_name", function () {
+          var category_id = $("#s_branch_name").val();
+          load_data("carModeldata", category_id);
+        });
+      });
+    </script>
+  </body>
+</html>

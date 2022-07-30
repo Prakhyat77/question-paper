@@ -1,0 +1,78 @@
+{%extends 'base.html'%}{%block head%}
+{%endblock%}
+{%block body%}
+<h2>Add Question</h2>
+{%if notice%}
+  <h4 style="color: red;">There is no such Subject with this Semester</h4>
+{%endif%}
+<form action="{{url_for('add_main_paper')}}" method="post">
+    <br />
+    <label>Branch Name</label>
+    <br>
+    <select class="form-control" id="branch" name="p_b_name">
+      <option selected="" disabled="">Branch Name</option>
+      {%for branch in branch_name%}
+        <option value="{{branch[0]}}">{{branch[0]}}</option>
+      {%endfor%}
+    </select>
+    <br>
+    <label>Subject Name</label>
+    <br>
+    <select class="form-control" id="subject" name="p_s_name">
+      <option selected="" disabled="">Subject Name</option>
+      {%for subject_name in subject_name_code%}
+      <option value="{{subject_name[0]}}">{{subject_name[0]}}</option>
+      {%endfor%}            	
+    </select>
+    <br>
+    <label >Semester</label>
+    <br>
+    <select class="form-control" id="subject" name="p_semester">
+      <option selected="" disabled="">Semester</option>
+      {%for semester in u_semester%}
+      <option value="{{semester[0]}}">{{semester[0]}}</option>
+      {%endfor%}            	
+    </select>
+    <br>
+    <label>Paper Name</label>
+    <input
+      class="form-control"
+      type="text"
+      name="paper_name"
+      placeholder="Paper Name"
+      required
+    />
+    <br>
+    <label>Description of Paper</label>
+    <textarea
+    class="form-control"
+    id="exampleFormControlTextarea1"
+    name="p_note"
+    placeholder="Description of Paper"
+    aria-label="Description of Paper"
+    rows="3"
+    required
+  ></textarea
+  >
+  <br>
+  <label>Time Alloted</label>
+  <input
+    class="form-control"
+    type="number"
+    name="p_time_all"
+    placeholder="Time Alloted"
+    required
+  />
+  <br>
+    <label>Status</label>
+    <br>
+    <select class="form-control" name="p_status" >
+      <option selected="" disabled="" >Status</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+    <br />
+    <br />
+    <input type="submit" value="Create" />
+  </form>
+{%endblock%}

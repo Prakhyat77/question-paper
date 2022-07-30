@@ -1,0 +1,39 @@
+{%extends 'base.html'%}{%block head%}
+{%endblock%}
+{%block body%}
+<h2>Add Branch</h2>
+{%if same%}
+  <h4 style="color: red;">Branch With Same Semester is Already Registered</h4>
+{%endif%}
+<form action="{{url_for('add_branch')}}" method="post">
+    <br />
+    <label>Branch Name</label>
+    <input
+      class="form-control"
+      type="text"
+      name="b_name"
+      placeholder="Branch Name"
+      required
+    />
+    <br />
+    <label>Semester</label>
+    <input
+      class="form-control"
+      type="number"
+      name="semester"
+      placeholder="Semester"
+      aria-label="Semester"
+      required
+    /><br />
+    <label>Status</label>
+    <br>
+    <select class="form-control" name="b_status" >
+      <option selected="" disabled="">Status</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+    <br />
+    <br />
+    <input type="submit" value="Create" />
+  </form>
+{%endblock%}

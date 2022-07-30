@@ -1,0 +1,69 @@
+{%extends 'base.html'%}{%block head%}
+<style>
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+</style>
+{%endblock%} {%block body%}
+<div>
+  <br />
+  <br />
+  <h2 style="display: inline">Unit</h2>
+  <br />
+  <br />
+  <a
+    style="display: inline"
+    class="btn btn-success float-right"
+    href="{{url_for('add_unit')}}"
+    >+ Add Unit</a
+  >
+</div>
+<br />
+<br />
+<br />
+<div style="overflow-x: auto">
+  <table>
+    <tr>
+      <th>S.no</th>
+      <th>Unit Number</th>
+      <th>Unit Name</th>
+      <th>Subject Code</th>
+      <th>Subject Name</th>
+      <th>Branch Name</th>
+      <th>Semester</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    {%for unit in unit_info%}
+    <tr>
+      <td>{{unit[0]}}</td>
+      <td>{{unit[1]}}</td>
+      <td>{{unit[2]}}</td>
+      <td>{{unit[8]}}</td>
+      <td>{{unit[4]}}</td>
+      <td>{{unit[3]}}</td>
+      <td>{{unit[5]}}</td>
+      <td>{{unit[6]}}</td>
+      <td>
+        <a class="btn btn-primary" href="/subject/edit/{{unit[0]}}">Edit</a>
+        <a class="btn btn-danger" href="/unit/delete/{{unit[0]}}">Delete</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{%endblock%}

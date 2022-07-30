@@ -1,0 +1,43 @@
+{%extends 'base.html'%}{%block head%}
+{%endblock%}
+{%block body%}
+<h2>Edit Branch</h2>
+{%for edit_info in edit_infos%}
+  <form action="/branch/edit/{{edit_info[0]}}" method="post">
+      <br />
+      <label>Branch Name</label>
+      <input
+        class="form-control"
+        type="text"
+        name="b_name"
+        placeholder="Computer Science"
+        value="{{edit_info[1]}}"
+        required
+      />
+      <br />
+      <label>Semester</label>
+      <input
+        class="form-control"
+        type="number"
+        name="semester"
+        placeholder="Semester"
+        value="{{edit_info[2]}}"
+        required
+      /><br />
+    <label>Status</label>
+    <br>
+    <select class="form-control" name="b_status" >
+      <option value="{{edit_info[3]}}" selected="" >{{edit_info[3]}}</option>
+      {%if edit_info[3]=="Inactive"%}
+        <option value="Active">Active</option>
+      {%else%}
+        <option value="Inactive">Inactive</option>
+      {%endif%}
+    </select>
+      <br />
+      <br />
+      <input type="submit" value="Update" />
+    </form>
+{%endfor%}
+
+{%endblock%}

@@ -1,0 +1,63 @@
+{%extends 'base.html'%}{%block head%}
+<style>
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  </style>
+{%endblock%}
+{%block body%}
+<div>
+  <br>
+  <br>
+    <h2 style="display: inline">Branch</h2>
+    <br>
+    <br>
+    <a
+      style="display: inline"
+      class="btn btn-success float-right"
+      href="{{url_for('add_branch')}}"
+      >+ Add Branch</a
+    >
+  </div>
+<br>
+{%if notice%}
+  <h4 style="color: red;">This Branch has subject first delete subject of this branch</h4>
+{%endif%}
+<br>
+<br>
+<div style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>S.no</th>
+        <th>Branch Name</th>
+        <th>Semester</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      {%for branch in branch_info%}
+      <tr>
+        <td>{{branch[0]}}</td>
+        <td>{{branch[1]}}</td>
+        <td>{{branch[2]}}</td>
+        <td>{{branch[3]}}</td>
+        <td>
+          <a class="btn btn-primary" href="/branch/edit/{{branch[0]}}">Edit</a>
+          <a class="btn btn-danger" href="/branch/delete/{{branch[0]}}">Delete</a>
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+  
+
+{%endblock%}

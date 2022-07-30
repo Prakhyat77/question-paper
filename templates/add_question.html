@@ -1,0 +1,78 @@
+{%extends 'base.html'%}{%block head%}
+{%endblock%}
+{%block body%}
+<h2>Add Question</h2>
+{%if notice%}
+  <h4 style="color: red;">There is no such Unit with this Subject</h4>
+{%endif%}
+<form action="{{url_for('add_question')}}" method="post">
+    <br />
+    <label>Branch Name</label>
+    <br>
+    <select class="form-control" id="branch" name="q_b_name">
+      <option selected="" disabled="">Branch Name</option>
+      {%for branch in branch_name%}
+        <option value="{{branch[0]}}">{{branch[0]}}</option>
+      {%endfor%}
+    </select>
+    <br>
+    <label>Subject Name</label>
+    <br>
+    <select class="form-control" id="subject" name="q_s_name">
+      <option selected="" disabled="">Subject Name</option>
+      {%for subject_name in subject_name_code%}
+      <option value="{{subject_name[0]}}">{{subject_name[0]}}</option>
+      {%endfor%}            	
+    </select>
+    <br>
+    <label >Semester</label>
+    <br>
+    <select class="form-control" id="subject" name="q_semester">
+      <option selected="" disabled="">Semester</option>
+      {%for semester in u_semester%}
+      <option value="{{semester[0]}}">{{semester[0]}}</option>
+      {%endfor%}            	
+    </select>
+    <br>
+    <label >Unit Name</label>
+    <br>
+    <select class="form-control" id="subject" name="q_unit_name">
+      <option selected="" disabled="">Unit Name</option>
+      {%for name in unit_name%}
+      <option value="{{name[0]}}">{{name[0]}}</option>
+      {%endfor%}            	
+    </select>
+    <br>
+    <label>Question Marks</label>
+    <input
+      class="form-control"
+      type="number"
+      name="q_marks"
+      placeholder="Question Marks"
+      required
+    />
+    <br>
+    <label>Question</label>
+    <textarea
+    class="form-control"
+    id="exampleFormControlTextarea1"
+    name="q_question"
+    placeholder="Question"
+    aria-label="Question"
+    rows="3"
+    required
+  ></textarea
+  >
+  <br>
+    <label>Status</label>
+    <br>
+    <select class="form-control" name="q_status" >
+      <option selected="" disabled="" >Status</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+    <br />
+    <br />
+    <input type="submit" value="Create" />
+  </form>
+{%endblock%}

@@ -1,0 +1,56 @@
+{%extends 'base.html'%}{%block head%}
+<style>
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even){background-color: #f2f2f2}
+    </style>
+{%endblock%}
+{%block body%}
+<h2>Generate Paper</h2>
+<form action="{{url_for('generate_paper')}}" method="post">
+    <br />
+    {%for unit in paper_unit_name%}
+        <h4>Unit Name: {{unit[0]}}</h4>
+
+        {%for pap in paper%}
+            {%if unit[0] == pap[3] %}
+            <div style="overflow-x:auto;">
+                <table>
+                    <tr>
+                    <th>Question Type</th>
+                    <th>Question ID</th>
+                    <th>Given Question</th>
+                    </tr>
+                    <tr>
+                    <td>{{pap[2]}}</td>
+                    <td>{{pap[0]}}</td>
+                    <td>{{pap[1]}}</td>
+                    <td>
+                        <input type="checkbox" name="question_id[]" value="{{pap[0]}}">
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                {%endif%}
+        {%endfor%}
+        <hr>
+        <br>
+    {%endfor%}
+    <br />
+    {%for p_id in paper_edit_info%}
+        <input type="checkbox" name="p_id[]" value="{{p_id[0]}}" required> Please Verify u want to Generate Paper 
+    {%endfor%}
+    <br>
+    <input type="submit" value="Generate" />
+  </form>
+{%endblock%}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question-Paper-Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"
+    /> -->
+  </head>
+  <body>
+    <div>
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{url_for('index')}}"
+          >Question-Paper-Generator</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarsExample03"
+          aria-controls="navbarsExample03"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+          <ul class="navbar-nav mr-auto"></ul>
+          <a class="nav-link" style="color: white" href="{{url_for('branch')}}"
+            >Branch</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('subject')}}"
+            >Subject</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('unit')}}"
+            >Unit</a
+          >
+          <a
+            class="nav-link"
+            style="color: white"
+            href="{{url_for('question')}}"
+            >Question</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('paper')}}"
+            >Paper</a
+          >
+          <a class="nav-link" style="color: white" href="{{url_for('logout')}}"
+            >Logout</a
+          >
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <h2>Add Unit</h2>
+      {%if notice%}
+      <h4 style="color: red">There is no such Subject with this semester</h4>
+      {%endif%}
+      <form action="{{url_for('add_unit')}}" method="post">
+        <br />
+        <label>Branch Name</label>
+        <br />
+        <select
+          class="form-control"
+          data-live-search="true"
+          id="u_branch"
+          name="u_branch_name"
+        >
+          <option selected="" disabled="">Branch Name</option>
+          {%for branch in branch_name%}
+          <option value="{{branch[0]}}">{{branch[0]}}</option>
+          {%endfor%}
+        </select>
+        <br />
+        <label>Semester</label>
+        <br />
+        <select
+          class="form-control"
+          data-live-search="true"
+          id="u_semester"
+          name="u_semester"
+        ></select>
+        <br />
+        <label>Subject Name</label>
+        <br />
+        <select
+          class="form-control"
+          data-live-search="true"
+          id="u_s_name"
+          name="u_subject_name"
+        ></select>
+        <br />
+        <label>Subject Code</label>
+        <br />
+        <select
+          class="form-control"
+          data-live-search="true"
+          id="u_s_code"
+          name="u_s_code"
+        >
+          <option selected="" disabled="">Subject Code</option>
+          {%for subject_code in subject_name_code%}
+          <option value="{{subject_code[1]}}">{{subject_code[1]}}</option>
+          {%endfor%}
+        </select>
+        <br />
+
+        <br />
+        <label>Unit Number</label>
+        <input
+          class="form-control"
+          type="number"
+          name="unit_number"
+          placeholder="Unit Number"
+          required
+        />
+        <br />
+        <label>Unit Name</label>
+        <input
+          class="form-control"
+          type="text"
+          name="unit_name"
+          placeholder="Unit Name"
+          required
+        />
+        <br />
+        <label>Status</label>
+        <br />
+        <select class="form-control" name="u_status">
+          <option selected="" disabled="">Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <br />
+        <br />
+        <input type="submit" value="Create" />
+      </form>
+    </div>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <!-- semester ajax -->
+    <script>
+      $(document).ready(function () {
+        $("#u_branch").selectpicker();
+
+        $("#u_semester").selectpicker();
+
+        function load_data(type, u_branch_name) {
+          $.ajax({
+            url: "/firstajaxunit",
+            method: "POST",
+            data: { type: type, u_branch_name: u_branch_name },
+            dataType: "json",
+            success: function (data) {
+              // alert(u_branch_name);
+              var html = "";
+              for (var count = 0; count < data.length; count++) {
+                html +=
+                  '<option value="' +
+                  data[count].semester +
+                  '">' +
+                  data[count].semester +
+                  "</option>";
+              }
+              if (type == "carData") {
+                $("#u_branch").html(html);
+                $("#u_branch").selectpicker("refresh");
+              } else {
+                $("#u_semester").html(html);
+                $("#u_semester").selectpicker("refresh");
+              }
+            },
+          });
+        }
+
+        $(document).on("change", "#u_branch", function () {
+          var u_branch_name = $("#u_branch").val();
+          load_data("carModeldata", u_branch_name);
+        });
+      });
+    </script>
+    <!-- subject name ajax -->
+    <script>
+      $(document).ready(function () {
+        $("#u_branch").selectpicker();
+        $("#u_semester").selectpicker();
+
+        $("#u_s_name").selectpicker();
+
+        function load_data(type, u_branch_name, u_semester_name) {
+          $.ajax({
+            url: "/secondajaxunit",
+            method: "POST",
+            data: {
+              type: type,
+              u_branch_name: u_branch_name,
+              u_semester_name: u_semester_name,
+            },
+            dataType: "json",
+            success: function (data) {
+              alert(u_semester_name);
+              var html = "";
+              for (var count = 0; count < data.length; count++) {
+                html +=
+                  '<option value="' +
+                  data[count].semester +
+                  '">' +
+                  data[count].semester +
+                  "</option>";
+              }
+              if (type == "carData") {
+                $("#u_semester").html(html);
+                $("#u_semester").selectpicker("refresh");
+              } else {
+                $("#u_s_name").html(html);
+                $("#u_s_name").selectpicker("refresh");
+              }
+            },
+          });
+        }
+
+        $(document).on("change", "#u_branch", "#u_semester", function () {
+          var u_branch_name = $("#u_branch").val();
+          var u_semester_name = $("#u_semester").val();
+
+          load_data("carModeldata", u_semester_name, u_branch_name);
+        });
+      });
+    </script>
+  </body>
+</html>

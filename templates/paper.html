@@ -1,0 +1,67 @@
+{%extends 'base.html'%}{%block head%}
+<style>
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  </style>
+{%endblock%}
+{%block body%}
+<div>
+  <br>
+  <br>
+    <h2 style="display: inline">Paper</h2>
+    <br>
+    <br>
+    <a
+      style="display: inline"
+      class="btn btn-success float-right"
+      href="{{url_for('add_main_paper')}}"
+      >+ Add Paper</a
+    >
+  </div>
+<br>
+<br>
+<br>
+<div style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>S.no</th>
+        <th>Paper Name</th>
+        <th>Subject Code</th>
+        <th>Subject Name</th>
+        <th>Branch Name</th>
+        <th>Semester</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      {%for paper in paper_info%}
+      <tr>
+        <td>{{paper[0]}}</td>
+        <td>{{paper[1]}}</td>
+        <td>{{paper[4]}}</td>
+        <td>{{paper[3]}}</td>
+        <td>{{paper[2]}}</td>
+        <td>{{paper[7]}}</td>
+        <td>{{paper[9]}}</td>
+        <td>
+          <a class="btn btn-primary" href="/paper/edit/{{paper[0]}}">Edit</a>
+          <a class="btn btn-danger" href="/paper/delete/{{paper[0]}}">Delete</a>
+          <a class="btn btn-info" href="/paper/generate/{{paper[0]}}">Generate</a>
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+  
+
+{%endblock%}

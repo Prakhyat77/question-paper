@@ -1,0 +1,60 @@
+{%extends 'base.html'%}{%block head%}
+      <script>
+        function printDiv(divName) {
+          var printContents = document.getElementById(divName).innerHTML;
+          var originalContents = document.body.innerHTML;
+      
+          document.body.innerHTML = printContents;
+      
+          window.print();
+      
+          document.body.innerHTML = originalContents;
+        }
+      </script>
+{%endblock%}
+{%block body%}
+<!-- </head>
+<body> -->
+<div class="container">
+    <div id="question_paper">
+        <p>[Total No. of Question: {{sum_count[0][1]}}]</p>
+        <div id="container1">
+            <span  style="float:left">Class Roll No.......</span>
+            <span  style="float:right">Enrollment No...........</span>
+            <br>
+            <br>
+        </div>
+        <div id="container2">
+            <span  style="float:left;margin-left: 50%;text-align: center;">{{paper[0][1]}}</span>
+            <span  style="float:left;margin-left: 50%;text-align: center;">{{paper[0][2]}}</span>
+            <span  style="float:left;margin-left: 50%;text-align: center;">{{paper[0][3]}}({{paper[0][4]}})</span>
+            <br>
+            <br>
+        </div>
+        <div id="container3">
+            <!-- <hr> -->
+            <br>
+            <span  style="float:left">Time- {{paper[0][6]}} hrs</span>
+            <!-- <hr> -->
+            <span  style="float:right">MM: - {{sum_count[0][0]}}</span>
+            <br>
+            <br>
+        </div>
+        <div id="container4">
+            <span  style="float:left">Note- {{paper[0][5]}}</span>
+            <br>
+        </div>
+        <div id="container5">
+            <hr>
+            <br>
+            {%for ques in question%}
+                <span  style="float:left;">Q &nbsp; {{ques[2]}} &nbsp; ({{ques[3]}})</span>
+                <br>
+            {%endfor%}
+        </div>
+        </div>
+        <br>
+        <br>
+      <button onclick="printDiv('question_paper')">Print</button>
+</div>
+{%endblock%}
